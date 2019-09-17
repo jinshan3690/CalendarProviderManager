@@ -749,7 +749,7 @@ public class CalendarProviderManager {
         };
 
         Cursor cursor = CalendarContract.Instances.query(
-                context.getContentResolver(), projection, begin, end, title);
+                context.getContentResolver(), projection, begin, end);
 
         return null != cursor && cursor.moveToFirst()
                 && cursor.getString(
