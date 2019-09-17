@@ -41,6 +41,7 @@ public class CalendarEvent {
     private int lastDate;
     private String organizer;
     private String isOrganizer;
+    private Integer isModify;
 
 
     // ----------------------------------------------------------------------------------------
@@ -273,6 +274,14 @@ public class CalendarEvent {
         this.reminders = reminders;
     }
 
+    public Integer getIsModify() {
+        return isModify;
+    }
+
+    public void setIsModify(Integer isModify) {
+        this.isModify = isModify;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -299,6 +308,7 @@ public class CalendarEvent {
                 "\n lastDate=" + lastDate +
                 "\n organizer='" + organizer + '\'' +
                 "\n isOrganizer='" + isOrganizer + '\'' +
+                "\n isModify='" + isModify + '\'' +
                 "\n reminders=" + reminders +
                 '}';
     }

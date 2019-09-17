@@ -777,6 +777,10 @@ public class CalendarProviderManager {
         event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
         // 定义事件的显示，默认即可
         event.put(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_DEFAULT);
+        // 定义事件的组织
+        event.put(CalendarContract.Events.ORGANIZER, calendarEvent.getOrganizer());
+        // 定义事件的可修改
+        event.put(CalendarContract.Events.GUESTS_CAN_MODIFY, calendarEvent.getIsModify());
         // 事件的状态
         event.put(CalendarContract.Events.STATUS, 0);
         // 设置事件提醒警报可用
