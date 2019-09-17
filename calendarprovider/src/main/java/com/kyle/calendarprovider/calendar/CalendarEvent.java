@@ -94,7 +94,7 @@ public class CalendarEvent {
         return id;
     }
 
-    void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -102,7 +102,7 @@ public class CalendarEvent {
         return calID;
     }
 
-    void setCalID(long calID) {
+    public void setCalID(long calID) {
         this.calID = calID;
     }
 
@@ -110,7 +110,7 @@ public class CalendarEvent {
         return title;
     }
 
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -118,7 +118,7 @@ public class CalendarEvent {
         return description;
     }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -126,7 +126,7 @@ public class CalendarEvent {
         return eventLocation;
     }
 
-    void setEventLocation(String eventLocation) {
+    public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
     }
 
@@ -134,7 +134,7 @@ public class CalendarEvent {
         return displayColor;
     }
 
-    void setDisplayColor(int displayColor) {
+    public void setDisplayColor(int displayColor) {
         this.displayColor = displayColor;
     }
 
@@ -142,7 +142,7 @@ public class CalendarEvent {
         return status;
     }
 
-    void setStatus(int status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -150,7 +150,7 @@ public class CalendarEvent {
         return start;
     }
 
-    void setStart(long start) {
+    public void setStart(long start) {
         this.start = start;
     }
 
@@ -158,7 +158,7 @@ public class CalendarEvent {
         return end;
     }
 
-    void setEnd(long end) {
+    public void setEnd(long end) {
         this.end = end;
     }
 
@@ -166,7 +166,7 @@ public class CalendarEvent {
         return duration;
     }
 
-    void setDuration(String duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -174,7 +174,7 @@ public class CalendarEvent {
         return eventTimeZone;
     }
 
-    void setEventTimeZone(String eventTimeZone) {
+    public void setEventTimeZone(String eventTimeZone) {
         this.eventTimeZone = eventTimeZone;
     }
 
@@ -182,7 +182,7 @@ public class CalendarEvent {
         return eventEndTimeZone;
     }
 
-    void setEventEndTimeZone(String eventEndTimeZone) {
+    public void setEventEndTimeZone(String eventEndTimeZone) {
         this.eventEndTimeZone = eventEndTimeZone;
     }
 
@@ -190,7 +190,7 @@ public class CalendarEvent {
         return allDay;
     }
 
-    void setAllDay(int allDay) {
+    public void setAllDay(int allDay) {
         this.allDay = allDay;
     }
 
@@ -198,7 +198,7 @@ public class CalendarEvent {
         return accessLevel;
     }
 
-    void setAccessLevel(int accessLevel) {
+    public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
     }
 
@@ -206,7 +206,7 @@ public class CalendarEvent {
         return availability;
     }
 
-    void setAvailability(int availability) {
+    public void setAvailability(int availability) {
         this.availability = availability;
     }
 
@@ -214,7 +214,7 @@ public class CalendarEvent {
         return hasAlarm;
     }
 
-    void setHasAlarm(int hasAlarm) {
+    public void setHasAlarm(int hasAlarm) {
         this.hasAlarm = hasAlarm;
     }
 
@@ -222,7 +222,7 @@ public class CalendarEvent {
         return rRule;
     }
 
-    void setRRule(String rRule) {
+    public void setRRule(String rRule) {
         this.rRule = rRule;
     }
 
@@ -230,7 +230,7 @@ public class CalendarEvent {
         return rDate;
     }
 
-    void setRDate(String rDate) {
+    public void setRDate(String rDate) {
         this.rDate = rDate;
     }
 
@@ -238,7 +238,7 @@ public class CalendarEvent {
         return hasAttendeeData;
     }
 
-    void setHasAttendeeData(int hasAttendeeData) {
+    public void setHasAttendeeData(int hasAttendeeData) {
         this.hasAttendeeData = hasAttendeeData;
     }
 
@@ -246,7 +246,7 @@ public class CalendarEvent {
         return lastDate;
     }
 
-    void setLastDate(int lastDate) {
+    public void setLastDate(int lastDate) {
         this.lastDate = lastDate;
     }
 
@@ -254,7 +254,7 @@ public class CalendarEvent {
         return organizer;
     }
 
-    void setOrganizer(String organizer) {
+    public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }
 
@@ -262,7 +262,7 @@ public class CalendarEvent {
         return isOrganizer;
     }
 
-    void setIsOrganizer(String isOrganizer) {
+    public void setIsOrganizer(String isOrganizer) {
         this.isOrganizer = isOrganizer;
     }
 
@@ -270,7 +270,7 @@ public class CalendarEvent {
         return reminders;
     }
 
-    void setReminders(List<EventReminders> reminders) {
+    public void setReminders(List<EventReminders> reminders) {
         this.reminders = reminders;
     }
 
