@@ -1,8 +1,13 @@
 package com.kyle.calendarprovider;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +18,12 @@ import android.widget.Toast;
 
 import com.kyle.calendarprovider.calendar.CalendarEvent;
 import com.kyle.calendarprovider.calendar.CalendarProviderManager;
+import com.kyle.calendarprovider.calendar.RRuleConstant;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -52,19 +60,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+
     @OnClick({R.id.btn_main_add, R.id.btn_main_delete, R.id.btn_edit,
-            R.id.btn_main_update, R.id.btn_main_query, R.id.btn_search})
+            R.id.btn_main_update, R.id.btn_main_query, R.id.btn_search, R.id.btn_cycle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_main_add:
-                CalendarEvent calendarEvent = new CalendarEvent(
-                        "马上吃饭",
-                        "吃好吃的",
-                        "南信院二食堂",
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis() + 60000,
-                        0, null
-                );
+                CalendarEvent calendarEvent = null;
+                TimeZone gmt = TimeZone.getTimeZone("GMT");//关键所在
+                sdf2.setTimeZone(gmt);
+                sdf2.setLenient(true);
+                try {
+                    String start = sdf.format(System.currentTimeMillis());
+                    String start2 = sdf2.format(System.currentTimeMillis());
+                    long start3 = sdf.parse(start).getTime()+ sdf2.parse(start2).getTime();
+                    calendarEvent = new CalendarEvent(
+                            "马上吃饭",
+                            "吃好吃的",
+                            "南信院二食堂",
+                            start3,
+                            System.currentTimeMillis() + 60000,
+                            0, RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU"
+                    );
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 // 添加事件
                 int result = CalendarProviderManager.addCalendarEvent(this, calendarEvent);
@@ -139,11 +161,29 @@ public class MainActivity extends AppCompatActivity {
                         false);
                 break;
             case R.id.btn_search:
-                if (CalendarProviderManager.isEventAlreadyExist(this, 1552986006309L,
-                        155298606609L, "马上吃饭")) {
+                if (CalendarProviderManager.isEventAlreadyExist(this, 1567148128058L,
+                        1567168188058L, "马上吃饭")) {
                     Toast.makeText(this, "存在", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "不存在", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.btn_cycle:
+                long accountID = CalendarProviderManager.obtainCalendarAccountID(this);
+                List<CalendarEvent> eventList = CalendarProviderManager.queryAccountEvent(this, accountID);
+                for (int i = 0; i < eventList.size(); i++) {
+                    CalendarEvent event = eventList.get(i);
+                    //每三天重复 UNTIL 截止日期
+//                    result = CalendarProviderManager.updateCalendarEventRRule(this, event.getId(),"FREQ=DAILY;INTERVAL=3");
+                    event.setRRule(RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU");
+                    result = CalendarProviderManager.updateCalendarEvent(this, event.getId(), event);
+                    if (result == 0) {
+                        Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
+                    } else if (result == -1) {
+                        Toast.makeText(this, "插入失败", Toast.LENGTH_SHORT).show();
+                    } else if (result == -2) {
+                        Toast.makeText(this, "没有权限", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             default:

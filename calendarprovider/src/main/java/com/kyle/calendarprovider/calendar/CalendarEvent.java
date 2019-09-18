@@ -321,7 +321,7 @@ public class CalendarEvent {
     /**
      * 事件提醒
      */
-    static class EventReminders {
+    public static class EventReminders {
 
         // ----------------------- 事件提醒属性 -----------------------
         private long reminderId;
@@ -333,7 +333,7 @@ public class CalendarEvent {
             return reminderId;
         }
 
-        void setReminderId(long reminderId) {
+        public void setReminderId(long reminderId) {
             this.reminderId = reminderId;
         }
 
@@ -341,7 +341,7 @@ public class CalendarEvent {
             return reminderEventID;
         }
 
-        void setReminderEventID(long reminderEventID) {
+        public void setReminderEventID(long reminderEventID) {
             this.reminderEventID = reminderEventID;
         }
 
@@ -349,7 +349,7 @@ public class CalendarEvent {
             return reminderMinute;
         }
 
-        void setReminderMinute(int reminderMinute) {
+        public void setReminderMinute(int reminderMinute) {
             this.reminderMinute = reminderMinute;
         }
 
@@ -357,7 +357,7 @@ public class CalendarEvent {
             return reminderMethod;
         }
 
-        void setReminderMethod(int reminderMethod) {
+        public void setReminderMethod(int reminderMethod) {
             this.reminderMethod = reminderMethod;
         }
 

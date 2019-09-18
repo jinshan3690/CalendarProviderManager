@@ -257,7 +257,8 @@ public class CalendarProviderManager {
             // 设置提醒提前的时间(0：准时  -1：使用系统默认)
             reminders.put(CalendarContract.Reminders.MINUTES, calendarEvent.getAdvanceTime());
             // 设置事件提醒方式为通知警报
-            reminders.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+            reminders.put(CalendarContract.Reminders.METHOD,
+                    calendarEvent.getReminders() != null ? calendarEvent.getReminders().get(0).getReminderMethod() : CalendarContract.Reminders.METHOD_ALERT);
             reminderUri = context.getContentResolver().insert(uri2, reminders);
 
             if (null == reminderUri) {
@@ -306,7 +307,8 @@ public class CalendarProviderManager {
 
         ContentValues reminders = new ContentValues();
         reminders.put(CalendarContract.Reminders.MINUTES, newCalendarEvent.getAdvanceTime());
-        reminders.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+        reminders.put(CalendarContract.Reminders.METHOD,
+                newCalendarEvent.getReminders() != null ? newCalendarEvent.getReminders().get(0).getReminderMethod() : CalendarContract.Reminders.METHOD_ALERT);
 
         // 更新匹配条件
         String selection2 = "(" + CalendarContract.Reminders.EVENT_ID + " = ?)";
