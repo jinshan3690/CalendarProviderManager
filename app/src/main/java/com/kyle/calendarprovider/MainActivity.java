@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.kyle.calendarprovider.calendar.CalendarEvent;
 import com.kyle.calendarprovider.calendar.CalendarProviderManager;
 import com.kyle.calendarprovider.calendar.RRuleConstant;

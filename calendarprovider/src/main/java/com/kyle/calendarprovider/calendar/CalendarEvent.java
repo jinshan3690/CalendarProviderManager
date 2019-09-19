@@ -2,6 +2,7 @@ package com.kyle.calendarprovider.calendar;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * <p>
  * Created by KYLE on 2019/3/4 - 9:53
  */
-public class CalendarEvent {
+public class CalendarEvent implements Serializable {
 
     // ----------------------- 事件属性 -----------------------
 
@@ -321,7 +322,7 @@ public class CalendarEvent {
     /**
      * 事件提醒
      */
-    public static class EventReminders {
+    public static class EventReminders implements Serializable {
 
         // ----------------------- 事件提醒属性 -----------------------
         private long reminderId;
