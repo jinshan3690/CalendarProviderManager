@@ -59,7 +59,7 @@ public class CalendarEvent implements Serializable, Parcelable {
     // ----------------------- 事件提醒属性 -----------------------
     private List<EventReminders> reminders;
 
-    CalendarEvent() {
+    public CalendarEvent() {
     }
 
     /**
