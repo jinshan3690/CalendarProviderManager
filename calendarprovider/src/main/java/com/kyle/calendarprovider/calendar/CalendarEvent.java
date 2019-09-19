@@ -1,5 +1,7 @@
 package com.kyle.calendarprovider.calendar;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.List;
  * <p>
  * Created by KYLE on 2019/3/4 - 9:53
  */
-public class CalendarEvent implements Serializable {
+public class CalendarEvent implements Serializable, Parcelable {
 
     // ----------------------- 事件属性 -----------------------
 
@@ -82,6 +84,50 @@ public class CalendarEvent implements Serializable {
         this.advanceTime = advanceTime;
         this.rRule = rRule;
     }
+
+    protected CalendarEvent(Parcel in) {
+        id = in.readLong();
+        calID = in.readLong();
+        title = in.readString();
+        description = in.readString();
+        eventLocation = in.readString();
+        displayColor = in.readInt();
+        status = in.readInt();
+        start = in.readLong();
+        end = in.readLong();
+        duration = in.readString();
+        eventTimeZone = in.readString();
+        eventEndTimeZone = in.readString();
+        allDay = in.readInt();
+        accessLevel = in.readInt();
+        availability = in.readInt();
+        hasAlarm = in.readInt();
+        rRule = in.readString();
+        rDate = in.readString();
+        hasAttendeeData = in.readInt();
+        lastDate = in.readInt();
+        organizer = in.readString();
+        isOrganizer = in.readString();
+        if (in.readByte() == 0) {
+            isModify = null;
+        } else {
+            isModify = in.readInt();
+        }
+        advanceTime = in.readInt();
+        reminders = in.createTypedArrayList(EventReminders.CREATOR);
+    }
+
+    public static final Creator<CalendarEvent> CREATOR = new Creator<CalendarEvent>() {
+        @Override
+        public CalendarEvent createFromParcel(Parcel in) {
+            return new CalendarEvent(in);
+        }
+
+        @Override
+        public CalendarEvent[] newArray(int size) {
+            return new CalendarEvent[size];
+        }
+    };
 
     public int getAdvanceTime() {
         return advanceTime;
@@ -319,16 +365,75 @@ public class CalendarEvent implements Serializable {
         return (int) (id * 37 + calID);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeLong(id);
+        dest.writeLong(calID);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(eventLocation);
+        dest.writeInt(displayColor);
+        dest.writeInt(status);
+        dest.writeLong(start);
+        dest.writeLong(end);
+        dest.writeString(duration);
+        dest.writeString(eventTimeZone);
+        dest.writeString(eventEndTimeZone);
+        dest.writeInt(allDay);
+        dest.writeInt(accessLevel);
+        dest.writeInt(availability);
+        dest.writeInt(hasAlarm);
+        dest.writeString(rRule);
+        dest.writeString(rDate);
+        dest.writeInt(hasAttendeeData);
+        dest.writeInt(lastDate);
+        dest.writeString(organizer);
+        dest.writeString(isOrganizer);
+        if (isModify == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(isModify);
+        }
+        dest.writeInt(advanceTime);
+        dest.writeTypedList(reminders);
+    }
+
     /**
      * 事件提醒
      */
-    public static class EventReminders implements Serializable {
+    public static class EventReminders implements Serializable,Parcelable {
 
         // ----------------------- 事件提醒属性 -----------------------
         private long reminderId;
         private long reminderEventID;
         private int reminderMinute;
         private int reminderMethod;
+
+        protected EventReminders(Parcel in) {
+            reminderId = in.readLong();
+            reminderEventID = in.readLong();
+            reminderMinute = in.readInt();
+            reminderMethod = in.readInt();
+        }
+
+        public static final Creator<EventReminders> CREATOR = new Creator<EventReminders>() {
+            @Override
+            public EventReminders createFromParcel(Parcel in) {
+                return new EventReminders(in);
+            }
+
+            @Override
+            public EventReminders[] newArray(int size) {
+                return new EventReminders[size];
+            }
+        };
 
         public long getReminderId() {
             return reminderId;
@@ -362,6 +467,18 @@ public class CalendarEvent implements Serializable {
             this.reminderMethod = reminderMethod;
         }
 
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeLong(reminderId);
+            dest.writeLong(reminderEventID);
+            dest.writeInt(reminderMinute);
+            dest.writeInt(reminderMethod);
+        }
     }
 
 }
