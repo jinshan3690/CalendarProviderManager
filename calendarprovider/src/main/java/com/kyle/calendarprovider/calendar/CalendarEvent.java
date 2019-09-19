@@ -1,5 +1,5 @@
 package com.kyle.calendarprovider.calendar;
-
+: construct
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -415,6 +415,9 @@ public class CalendarEvent implements Serializable, Parcelable {
         private long reminderEventID;
         private int reminderMinute;
         private int reminderMethod;
+
+        public EventReminders() {
+        }
 
         protected EventReminders(Parcel in) {
             reminderId = in.readLong();
