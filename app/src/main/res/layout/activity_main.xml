@@ -47,6 +47,12 @@
             android:layout_height="64dp"
             android:text="检查是否存在" />
 
+        <Button
+            android:id="@+id/btn_cycle"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="检查是否循环" />
+
         <TextView
             android:id="@+id/tv_event"
             android:layout_width="match_parent"

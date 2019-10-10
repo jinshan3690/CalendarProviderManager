@@ -75,13 +75,21 @@ public class MainActivity extends AppCompatActivity {
                     String start = sdf.format(System.currentTimeMillis());
                     String start2 = sdf2.format(System.currentTimeMillis());
                     long start3 = sdf.parse(start).getTime()+ sdf2.parse(start2).getTime();
+//                    calendarEvent = new CalendarEvent(
+//                            "马上吃饭",
+//                            "吃好吃的",
+//                            "南信院二食堂",
+//                            start3,
+//                            System.currentTimeMillis() + 60000,
+//                            0, RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU"
+//                    );
                     calendarEvent = new CalendarEvent(
                             "马上吃饭",
                             "吃好吃的",
                             "南信院二食堂",
                             start3,
-                            System.currentTimeMillis() + 60000,
-                            0, RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU"
+                            0,
+                            0, RRuleConstant.REPEAT_CYCLE_DAILY_FOREVER
                     );
                 } catch (ParseException e) {
                     e.printStackTrace();

@@ -92,7 +92,7 @@ public class RRuleConstant {
     /**
      * 每天重复 - 永远
      */
-    public static final String REPEAT_CYCLE_DAILY_FOREVER = "FREQ=DAILY;INTERVAL=1";
+    public static final String REPEAT_CYCLE_DAILY_FOREVER = "FREQ=DAILY;INTERVAL=1;WKST=SU";
 
     /**
      * 每周某天重复

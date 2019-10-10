@@ -768,7 +768,10 @@ public class CalendarProviderManager {
         // 事件开始时间
         event.put(CalendarContract.Events.DTSTART, calendarEvent.getStart());
         // 事件结束时间
-        event.put(CalendarContract.Events.DTEND, calendarEvent.getEnd());
+        if (calendarEvent.getEnd() != 0)
+            event.put(CalendarContract.Events.DTEND, calendarEvent.getEnd());
+        else
+            event.put(CalendarContract.Events.DURATION, "P3600S");
         // 事件标题
         event.put(CalendarContract.Events.TITLE, calendarEvent.getTitle());
         // 事件描述(对应手机系统日历备注栏)
