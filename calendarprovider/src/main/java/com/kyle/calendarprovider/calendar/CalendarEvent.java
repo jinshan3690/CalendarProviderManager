@@ -356,7 +356,7 @@ public class CalendarEvent implements Serializable, Parcelable {
                 "\n organizer='" + organizer + '\'' +
                 "\n isOrganizer='" + isOrganizer + '\'' +
                 "\n isModify='" + isModify + '\'' +
-                "\n reminders=" + reminders +
+                "\n reminders=" + reminders.toString() +
                 '}';
     }
 

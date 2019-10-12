@@ -135,16 +135,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "没有事件可以更新", Toast.LENGTH_SHORT).show();
                     } else {
                         long eventID = events.get(0).getId();
-//                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
-//                                this, eventID, "改吃晚饭的房间第三方监督司法");
-                        List<CalendarEvent.EventReminders> reminders = new ArrayList<>();
-                        CalendarEvent.EventReminders eventReminders = new CalendarEvent.EventReminders();
-                        eventReminders.setReminderMethod(CalendarContract.Reminders.METHOD_DEFAULT);
-                        reminders.add(eventReminders);
-                        events.get(0).setIsModify(1);
-                        events.get(0).setAdvanceTime(-1);
-                        int result3 = CalendarProviderManager.updateCalendarEvent(this, eventID, events.get(0));
-
+                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
+                                this, eventID, "改吃晚饭的房间第三方监督司法");
                         if (result3 == 1) {
                             Toast.makeText(this, "更新成功", Toast.LENGTH_SHORT).show();
                         } else {

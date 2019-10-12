@@ -269,6 +269,42 @@ public class CalendarProviderManager {
         return 0;
     }
 
+    /**
+     * 添加警告事件
+     *
+     */
+    public static int addCalendarReminderEvent(Context context, long eventID, int advanceTime) {
+        return addCalendarReminderEvent(context, eventID, advanceTime, CalendarContract.Reminders.METHOD_ALERT);
+    }
+
+    public static int addCalendarReminderEvent(Context context, long eventID, int advanceTime, int reminderMethod) {
+        checkContextNull(context);
+
+        // 系统日历事件提醒表
+        Uri uri2 = CalendarContract.Reminders.CONTENT_URI;
+        // 创建的日历事件提醒
+        Uri reminderUri;
+
+        if (-2 != advanceTime) {
+
+            // 开始组装事件提醒数据
+            ContentValues reminders = new ContentValues();
+            // 此提醒所对应的事件ID
+            reminders.put(CalendarContract.Reminders.EVENT_ID, eventID);
+            // 设置提醒提前的时间(0：准时  -1：使用系统默认)
+            reminders.put(CalendarContract.Reminders.MINUTES, advanceTime);
+            // 设置事件提醒方式为通知警报
+            reminders.put(CalendarContract.Reminders.METHOD, reminderMethod);
+            reminderUri = context.getContentResolver().insert(uri2, reminders);
+
+            if (null == reminderUri) {
+                return -1;
+            }
+        }
+
+        return 1;
+    }
+
 
     // ------------------------------- 更新日历事件 -----------------------------------
 
@@ -582,6 +618,22 @@ public class CalendarProviderManager {
         return (deletedCount1 + deletedCount2) / 2;
     }
 
+    /**
+     * 更新指定ID的日历事件
+     */
+    public static int deleteCalendarReminderEvent(Context context, long eventID) {
+        checkContextNull(context);
+
+        Uri uri2 = CalendarContract.Reminders.CONTENT_URI;
+
+        // 更新匹配条件
+        String selection2 = "(" + CalendarContract.Reminders.EVENT_ID + " = ?)";
+        String[] selectionArgs2 = new String[]{String.valueOf(eventID)};
+
+        int updatedCount2 = context.getContentResolver().delete(uri2, selection2, selectionArgs2);
+
+        return updatedCount2;
+    }
 
     // ------------------------------- 查询日历事件 -----------------------------------
 
