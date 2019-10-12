@@ -21,6 +21,7 @@ import com.kyle.calendarprovider.calendar.RRuleConstant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -75,22 +76,22 @@ public class MainActivity extends AppCompatActivity {
                     String start = sdf.format(System.currentTimeMillis());
                     String start2 = sdf2.format(System.currentTimeMillis());
                     long start3 = sdf.parse(start).getTime()+ sdf2.parse(start2).getTime();
+                    calendarEvent = new CalendarEvent(
+                            "马上吃饭",
+                            "吃好吃的",
+                            "南信院二食堂",
+                            start3+ 30000,
+                            System.currentTimeMillis() + 60000,
+                            0, RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU"
+                    );
 //                    calendarEvent = new CalendarEvent(
 //                            "马上吃饭",
 //                            "吃好吃的",
 //                            "南信院二食堂",
 //                            start3,
-//                            System.currentTimeMillis() + 60000,
-//                            0, RRuleConstant.REPEAT_CYCLE_WEEKLY+"MO,TU,WE,TH,FR,SA,SU"
+//                            0,
+//                            0, RRuleConstant.REPEAT_CYCLE_DAILY_FOREVER
 //                    );
-                    calendarEvent = new CalendarEvent(
-                            "马上吃饭",
-                            "吃好吃的",
-                            "南信院二食堂",
-                            start3,
-                            0,
-                            0, RRuleConstant.REPEAT_CYCLE_DAILY_FOREVER
-                    );
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -134,8 +135,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "没有事件可以更新", Toast.LENGTH_SHORT).show();
                     } else {
                         long eventID = events.get(0).getId();
-                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
-                                this, eventID, "改吃晚饭的房间第三方监督司法");
+//                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
+//                                this, eventID, "改吃晚饭的房间第三方监督司法");
+                        List<CalendarEvent.EventReminders> reminders = new ArrayList<>();
+                        CalendarEvent.EventReminders eventReminders = new CalendarEvent.EventReminders();
+                        eventReminders.setReminderMethod(CalendarContract.Reminders.METHOD_DEFAULT);
+                        reminders.add(eventReminders);
+                        events.get(0).setIsModify(1);
+                        events.get(0).setAdvanceTime(-1);
+                        int result3 = CalendarProviderManager.updateCalendarEvent(this, eventID, events.get(0));
+
                         if (result3 == 1) {
                             Toast.makeText(this, "更新成功", Toast.LENGTH_SHORT).show();
                         } else {

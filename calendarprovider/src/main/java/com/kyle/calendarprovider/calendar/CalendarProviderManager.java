@@ -307,7 +307,7 @@ public class CalendarProviderManager {
 
         ContentValues reminders = new ContentValues();
         reminders.put(CalendarContract.Reminders.MINUTES, newCalendarEvent.getAdvanceTime());
-        reminders.put(CalendarContract.Reminders.METHOD,
+        reminders.put(CalendarContract.Reminders.METHOD,//更新无效
                 newCalendarEvent.getReminders() != null ? newCalendarEvent.getReminders().get(0).getReminderMethod() : CalendarContract.Reminders.METHOD_ALERT);
 
         // 更新匹配条件
